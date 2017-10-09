@@ -5,18 +5,30 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    loadedTodos: []
+    loadedTodos: [],
+    count:0
   },
   mutations: {
     addTodo(state, title) {
       state.loadedTodos.push({
+        id:state.count,
         title: title,
         active: true
       })
+      state.count++
     },
-    updateActiveByIndexes(state, indexes) {
-      state.loadedTodos.forEach(function (todo, index) {
-        if (indexes.indexOf(index) == -1) {
+    deleteTodo(state, id) {
+      let temp = []
+      state.loadedTodos.forEach(function (todo) {
+        if (todo.id != id) {
+          temp.push(todo)
+        }
+      })
+      state.loadedTodos = temp
+    },
+    updateActiveByIds(state, ids) {
+      state.loadedTodos.forEach(function (todo,index) {
+        if (ids.indexOf(todo.id) == -1) {
           state.loadedTodos[index].active = true
         } else {
           state.loadedTodos[index].active = false

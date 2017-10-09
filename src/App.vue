@@ -9,12 +9,11 @@
       <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
         <v-card>
           <v-text-field box  placeholder="What needs to be done?" v-model="title" @keyup.enter="addTodo()"></v-text-field>
-
           <v-card class="elevation-0">
             <v-card-text>
-              <v-layout row v-for="(todo,index) in todos" :key='todo.title'>
-                <v-checkbox :label="todo.title" :value="index" v-model="indexes" :class="getClass(todo.active)"></v-checkbox>
-                <v-btn flat icon color="prey">
+              <v-layout row v-for="todo in todos" :key='todo.id'>
+                <v-checkbox :label="todo.title" :value="todo.id" v-model="ids" :class="getClass(todo.active)"></v-checkbox>
+                <v-btn flat icon color="prey" @click="deleteTodo(todo.id)">
                   <v-icon>cancel</v-icon>
                 </v-btn>
               </v-layout>
@@ -45,7 +44,7 @@ export default {
     return {
       condition: 'all',
       title: '',
-      indexes: []
+      ids: []
     }
   },
   computed: {
@@ -57,13 +56,15 @@ export default {
      // updateActiveByIndexes: 'updateActiveByIndexes'
     }),
     todos() {
-      this.$store.commit('updateActiveByIndexes', this.indexes)
-      console.log(this.condition,1111)
+      this.$store.commit('updateActiveByIds', this.ids)
       return  this.loadedTodosByCondition(this.condition)
     }
    
   },
   methods: {
+    deleteTodo(id) {
+      this.$store.commit('deleteTodo',id)
+    },
     addTodo() {
       if(this.title==''){
         return
