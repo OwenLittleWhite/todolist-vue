@@ -1,6 +1,6 @@
 # todolist-vue
 
-> A Vue.js project
+> A todolist project via vuejs, vuex and vuetify
 
 ## Build Setup
 
