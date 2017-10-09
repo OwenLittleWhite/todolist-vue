@@ -8,9 +8,6 @@ export default new Vuex.Store({
     loadedTodos: []
   },
   mutations: {
-    fetchTodos(state, todos) {
-      state.loadedTodos = todos
-    },
     addTodo(state, title) {
       state.loadedTodos.push({
         title: title,
