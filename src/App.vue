@@ -11,9 +11,9 @@
           <v-text-field name="input-1-3" placeholder="What needs to be done?" v-model="title" @keyup.enter="addTodo()"></v-text-field>
 
           <v-card class="elevation-0">
-            <v-card-text>
+            <v-card-text>{{indexes}}
               <v-layout row v-for="(todo,index) in todos" :key='todo.title'>
-                <v-checkbox :label="todo.title" :value="todo.index" v-model="indexes"></v-checkbox>
+                <v-checkbox :label="todo.title" :value="index" v-model="indexes"></v-checkbox>
                 <v-btn flat icon color="prey">
                   <v-icon>cancel</v-icon>
                 </v-btn>
