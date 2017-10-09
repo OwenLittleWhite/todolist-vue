@@ -9,12 +9,11 @@
       <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
         <v-card>
           <v-layout row>
-           
-                  <v-icon center>add_box</v-icon>
-             
-            <v-text-field box  placeholder="What needs to be done?" v-model="title" @keyup.enter="addTodo()"></v-text-field>
+            <v-icon center>add_box</v-icon>
+
+            <v-text-field box placeholder="What needs to be done?" v-model="title" @keyup.enter="addTodo()"></v-text-field>
           </v-layout>
-          
+
           <v-card class="elevation-0">
             <v-card-text>
               <v-layout row v-for="todo in todos" :key='todo.id'>
@@ -25,10 +24,16 @@
               </v-layout>
             </v-card-text>
           </v-card>
-          <v-layout row md10 center >
-            <a href='#/All'><v-btn @click="condition=`all`" flat :class="getBtnClass('all')">All</v-btn></a>
-            <a  href='#/active'><v-btn flat @click="condition=`active`" :class="getBtnClass('active')">Active</v-btn></a>
-            <a  href='#/completed'><v-btn @click="condition=`completed`" flat  :class="getBtnClass('completed')">Completed</v-btn></a>
+          <v-layout row md10 center>
+            <a href='#/All'>
+              <v-btn @click="condition=`all`" flat :class="getBtnClass('all')">All</v-btn>
+            </a>
+            <a href='#/active'>
+              <v-btn flat @click="condition=`active`" :class="getBtnClass('active')">Active</v-btn>
+            </a>
+            <a href='#/completed'>
+              <v-btn @click="condition=`completed`" flat :class="getBtnClass('completed')">Completed</v-btn>
+            </a>
           </v-layout>
         </v-card>
       </v-flex>
@@ -59,32 +64,32 @@ export default {
       loadedTodosByCondition: 'loadedTodosByCondition'
     }),
     ...mapMutations({
-     // updateActiveByIndexes: 'updateActiveByIndexes'
+      // updateActiveByIndexes: 'updateActiveByIndexes'
     }),
     todos() {
       this.$store.commit('updateActiveByIds', this.ids)
-      return  this.loadedTodosByCondition(this.condition)
+      return this.loadedTodosByCondition(this.condition)
     }
-   
+
   },
   methods: {
     deleteTodo(id) {
-      this.$store.commit('deleteTodo',id)
+      this.$store.commit('deleteTodo', id)
     },
     addTodo() {
-      if(this.title==''){
+      if (this.title == '') {
         return
       }
       this.$store.commit('addTodo', this.title)
       this.title = ''
     },
-    getClass(isActive){
-      if(!isActive){
+    getClass(isActive) {
+      if (!isActive) {
         return "done"
       }
     },
-     getBtnClass(btn) {
-      if(btn==this.condition){
+    getBtnClass(btn) {
+      if (btn == this.condition) {
         return "selected"
       }
     }
@@ -93,18 +98,20 @@ export default {
 
 </script>
 <style>
-
 .textInput {
-  border: solid 1px 
+  border: solid 1px
 }
+
 .done {
-  color:green
+  color: green
 }
+
 a {
   text-decoration: none
 }
+
 .selected {
-  color:red
+  color: red
 }
 </style>
 
