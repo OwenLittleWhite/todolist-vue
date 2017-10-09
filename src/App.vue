@@ -8,7 +8,13 @@
     <v-layout row>
       <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
         <v-card>
-          <v-text-field box  placeholder="What needs to be done?" v-model="title" @keyup.enter="addTodo()"></v-text-field>
+          <v-layout row>
+           
+                  <v-icon center>add_box</v-icon>
+             
+            <v-text-field box  placeholder="What needs to be done?" v-model="title" @keyup.enter="addTodo()"></v-text-field>
+          </v-layout>
+          
           <v-card class="elevation-0">
             <v-card-text>
               <v-layout row v-for="todo in todos" :key='todo.id'>
@@ -29,7 +35,7 @@
     </v-layout>
     <v-layout row wrap class="mt-5">
       <v-flex xs12 sm12 class="text-xs-center">
-        <p>Explore our awesome abstracts!</p>
+        <p>© {{ new Date().getFullYear() }} Owen, All Rights Reserved </p>
       </v-flex>
 
     </v-layout>
