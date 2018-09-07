@@ -48,70 +48,69 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   data() {
     return {
-      condition: 'all',
-      title: '',
-      ids: []
-    }
+      condition: "all",
+      title: "",
+      ids: localStorage.getItem("ids")
+        ? JSON.parse(localStorage.getItem("ids"))
+        : []
+    };
   },
   computed: {
-
     ...mapGetters({
-      loadedTodosByCondition: 'loadedTodosByCondition'
+      loadedTodosByCondition: "loadedTodosByCondition"
     }),
     ...mapMutations({
       // updateActiveByIndexes: 'updateActiveByIndexes'
     }),
     todos() {
-      this.$store.commit('updateActiveByIds', this.ids)
-      return this.loadedTodosByCondition(this.condition)
+      this.$store.commit("updateActiveByIds", this.ids);
+      return this.loadedTodosByCondition(this.condition);
     }
-
   },
   methods: {
     deleteTodo(id) {
-      this.$store.commit('deleteTodo', id)
+      this.$store.commit("deleteTodo", id);
     },
     addTodo() {
-      if (this.title == '') {
-        return
+      if (this.title == "") {
+        return;
       }
-      this.$store.commit('addTodo', this.title)
-      this.title = ''
+      this.$store.commit("addTodo", this.title);
+      this.title = "";
     },
     getClass(isActive) {
       if (!isActive) {
-        return "done"
+        return "done";
       }
     },
     getBtnClass(btn) {
       if (btn == this.condition) {
-        return "selected"
+        return "selected";
       }
     }
   }
-}
-
+};
 </script>
 <style>
 .textInput {
-  border: solid 1px
+  border: solid 1px;
 }
 
 .done {
-  color: green
+  color: green;
 }
 
 a {
-  text-decoration: none
+  text-decoration: none;
 }
 
 .selected {
-  color: red
+  color: red;
 }
 </style>
 

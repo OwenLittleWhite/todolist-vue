@@ -5,8 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    loadedTodos: [],
-    count: 0
+    loadedTodos: localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos')) : [],
+    count: parseInt(localStorage.getItem('count')) || 0
   },
   mutations: {
     addTodo(state, title) {
@@ -16,6 +16,8 @@ export default new Vuex.Store({
         active: true
       })
       state.count++
+      localStorage.setItem('todos', JSON.stringify(state.loadedTodos))
+      localStorage.setItem('count', state.count + '')
     },
     deleteTodo(state, id) {
       let temp = []
@@ -25,6 +27,7 @@ export default new Vuex.Store({
         }
       })
       state.loadedTodos = temp
+      localStorage.setItem('todos', JSON.stringify(state.loadedTodos))
     },
     updateActiveByIds(state, ids) {
       state.loadedTodos.forEach(function (todo, index) {
@@ -34,6 +37,8 @@ export default new Vuex.Store({
           state.loadedTodos[index].active = false
         }
       })
+      localStorage.setItem('todos', JSON.stringify(state.loadedTodos))
+      localStorage.setItem('ids', JSON.stringify(ids))
     }
   },
   getters: {
